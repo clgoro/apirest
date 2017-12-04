@@ -10,6 +10,6 @@ api.get("/testsc", userController.userTest);
 
 api.post("/create", userController.create);
 
-// api.post("/login", userController.userLogin);
+api.post("/login", userController.userLogin);
 
 module.exports = api;

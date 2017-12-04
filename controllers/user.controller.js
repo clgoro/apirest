@@ -38,35 +38,47 @@ function create(req, res){
 	}
 }
 
-// function userlogin(req, res){
+function userLogin(req,res){
 
-// 	var params = req.body;
-// 	var user = params.user;
-// 	var password = params.password;
+	var params = req.body;
+	var user = params.user;
+	var password = params.password;
 
-// 	User.findOne({user:user}, (error, userSelec)=>{
+	Users.findOne({user:user}, (error, userSelec)=>{
 
-// 			if(error){
+			if(error){
 
-// 				res.status(500).send({message:"Error login the User"})
+				res.status(500).send({message:"Error login the User"})
 
-// 			}else{
-// 				if(!user){
+			}else{
 
-// 					res.status(404).send({message:"User does not exist"})
+				if(!user){
+
+					res.status(404).send({message:"User does not exist"})
 			
-// 				}else{
+				}else{
 
-// 					res.status(200).send(userSelec);
+					//res.status(200).send({userSelec});
+					bcrypt.compare(password, userSelec.password, function(error, ok){
+
+						if(ok){
+
+							res.status(200).send({userSelec});
+						}else{
+
+							res.status(404).send({message:"User was not able to login"})
+
+						}
+					})
 					
-// 				}
-// 			}
-// 		})
-// 	}
+			}
+		}
+	})
+}
 
 
 module.exports ={
 	userTest,
 	create,
-	// userlogin
+	userLogin
 }
