@@ -6,7 +6,9 @@ var userController = require("../controllers/user.controller.js");
 
 var api = express.Router();
 
-api.get("/testsc", userController.userTest);
+var md_aut = require("../token/aut.js")
+
+api.get("/testsc", md_aut.authentication, userController.userTest);
 
 api.post("/create", userController.create);
 
