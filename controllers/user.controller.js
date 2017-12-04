@@ -7,6 +7,7 @@ function userTest(req,res){
 
 var Users = require("../models/users.model.js")
 var bcrypt = require("bcrypt-nodejs");
+var token = require("../token/token.js")
 
 function create(req, res){
 
@@ -63,7 +64,12 @@ function userLogin(req,res){
 
 						if(ok){
 
-							res.status(200).send({userSelec});
+							//res.status(200).send({userSelec});
+							if(params.token){
+
+								res.status(200).send({token: token.createToken(userSelec)})
+							}
+
 						}else{
 
 							res.status(404).send({message:"User was not able to login"})
